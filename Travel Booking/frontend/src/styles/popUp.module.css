@@ -1,0 +1,20 @@
+.trigger {
+  background: transparent;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+}
+
+.content {
+  min-width: 200px;
+  max-width: 430px;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  color: var(--black-color);
+  font-weight: 500;
+  font-size: var(--small-font-size);
+}
+
+.arrow {
+  fill: var(--button-color);
+}

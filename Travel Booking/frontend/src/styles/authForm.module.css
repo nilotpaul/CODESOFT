@@ -1,0 +1,49 @@
+.form {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 1rem;
+}
+
+.form .child {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.25rem;
+}
+
+.form .child .errs {
+  color: red;
+  margin-left: 0.35rem;
+  font-size: var(--smaller-font-size);
+}
+
+.form .button button {
+  padding: 0.4em;
+  background-color: #000913;
+  color: #fff;
+  margin-top: 0.3rem;
+  transition: background-color 0.2s;
+}
+
+.form .button button:hover {
+  background-color: #191f24;
+  transition: background-color 0.2s;
+}
+
+.down {
+  font-size: var(--small-font-size);
+  text-align: center;
+  font-weight: 400;
+}
+
+.down span {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 576px) {
+  .form .button button {
+    padding: 0.7em;
+  }
+}

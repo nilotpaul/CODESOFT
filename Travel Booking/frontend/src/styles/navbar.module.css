@@ -1,0 +1,49 @@
+.nav {
+  height: 4rem;
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+}
+
+.navbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  column-gap: 0.45rem;
+  font-size: calc(var(--h3-font-size) + 0.05rem);
+  font-weight: 600;
+  color: #fff;
+}
+
+.login button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 0.45rem;
+  background-color: var(--primary-color);
+  transition: background-color 0.1s;
+}
+
+.login button:hover {
+  background-color: rgb(88, 88, 88);
+  transition: background-color 0.1s;
+}
+
+#popup {
+  display: inline-flex;
+  align-items: center;
+  column-gap: 0.35rem;
+  font-size: var(--normal-font-size);
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}

@@ -1,0 +1,98 @@
+.content {
+  position: fixed;
+  top: calc(50% - 4rem);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 1rem 1.35rem;
+  color: var(--black-color);
+  border-radius: 0.45rem;
+  animation: childrenMount 0.12s ease-in;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.25rem;
+}
+
+.content[data-state="closed"],
+.overlay[data-state="closed"] {
+  animation: fadeOut 0.2s ease-out;
+}
+
+.overlay {
+  position: fixed;
+  background-color: #000;
+  inset: 0;
+  opacity: 0.3;
+  animation: overlayMount 0.1s ease-in;
+}
+
+.content .title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.content .children {
+  margin-top: 0.35rem;
+}
+
+.content .title :first-child {
+  cursor: pointer;
+  transition: color 0.1s;
+}
+
+.content .title :first-child:hover {
+  color: rgb(103, 103, 103);
+}
+
+@keyframes overlayMount {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.3;
+  }
+}
+
+@keyframes childrenMount {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .content {
+    width: 100%;
+    height: calc(100vh - 4rem);
+    margin-top: 4rem;
+    transform: none;
+    top: 0;
+    left: 0;
+    border-radius: 0;
+  }
+
+  @keyframes childrenMount {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+.button {
+  font-size: var(--normal-font-size);
+  font-family: "Poppins", sans-serif;
+  padding: 0.25rem 0.45rem;
+  border-radius: 0.35rem;
+  background-color: var(--button-color);
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+}
+
+.button:focus {
+  outline: 1.35px solid var(--bg-color);
+}

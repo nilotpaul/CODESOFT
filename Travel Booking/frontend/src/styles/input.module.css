@@ -1,0 +1,17 @@
+.input {
+  padding: 0.25rem 0.7rem;
+  border-radius: 0.35rem;
+  outline: 0;
+  border: 1px solid var(--primary-color);
+  width: 100%;
+}
+
+.input::placeholder {
+  color: #373d43;
+  font-size: var(--small-font-size);
+}
+
+.input[type="text"],
+.input[type="password"] {
+  font-size: var(--normal-font-size);
+}
