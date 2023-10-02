@@ -5,22 +5,11 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { url } from "../utils/cloudinaryUrl";
+import { logos } from "../utils/logosArray";
 
 import styles from "../styles/homepage.module.css";
 
 const Homepage = () => {
-  const logos = [
-    "/airAsia.jpg",
-    "/airFrance.jpg",
-    "/airIndia.jpg",
-    "/britishAirways.jpg",
-    "/emirates.jpg",
-    "/indigo.jpg",
-    "singaporeAirlines.jpg",
-    "spicejet.jpg",
-    "/vistara.jpg",
-  ];
-
   return (
     <div className={styles.home}>
       <section className={styles.promises}>
@@ -153,10 +142,13 @@ const Homepage = () => {
       <section className={styles.scroller} data-animated="true">
         <div className={styles.container}>
           {logos.map((img, id) => (
-            <img key={id} src={img} alt={img} width={300} height={160} />
-          ))}
-          {logos.map((img, id) => (
-            <img key={id} src={img} alt={img} width={300} height={160} />
+            <img
+              key={id}
+              src={img}
+              alt={img.replace("/", "").replace(".jpg", "")}
+              width={300}
+              height={160}
+            />
           ))}
         </div>
       </section>

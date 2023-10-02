@@ -2,9 +2,9 @@ import * as Popover from "@radix-ui/react-popover";
 
 import styles from "../styles/popUp.module.css";
 
-const PopUp = ({ trigger, children, className }) => {
+const PopUp = ({ trigger, children, className, ...props }) => {
   return (
-    <Popover.Root>
+    <Popover.Root {...props}>
       <Popover.Trigger className={styles.trigger}>{trigger}</Popover.Trigger>
       <Popover.Portal>
         <Popover.Content

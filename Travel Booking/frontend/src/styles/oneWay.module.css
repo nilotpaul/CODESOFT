@@ -9,6 +9,7 @@
   padding: 0.4rem 0.3rem;
   min-width: 100px;
   max-width: 100%;
+  position: relative;
 }
 
 .header_section .child:first-child {
@@ -86,13 +87,6 @@
   transition: background-color 0.2s;
 }
 
-.cabin .child_age {
-  margin: 1rem 0;
-  display: flex;
-  align-items: center;
-  column-gap: 0.5rem;
-}
-
 .cabin .btn {
   margin-top: 0.5rem;
   width: 100%;
@@ -100,6 +94,7 @@
 }
 
 .cabin #ghost_text {
+  margin-top: 1rem;
   color: #494949;
 }
 
