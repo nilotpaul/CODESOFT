@@ -2,17 +2,22 @@ import Input from "./Input";
 import PopUp from "./PopUp";
 import { CalendarDays } from "lucide-react";
 import Button from "./Button";
-
-import { useRef, useState } from "react";
-import { DayPicker } from "react-day-picker";
-import { useSearchParams } from "react-router-dom";
-import SearchQuerySelect from "./SearchQuerySelect";
-import useDebounce from "../hooks/useDebounce";
-
-import styles from "../styles/oneWay.module.css";
 import TraverllersSelect from "./TraverllersSelect";
 
+import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setPayload } from "../redux/slices/flightPayloadSlice";
+import { DayPicker } from "react-day-picker";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import SearchQuerySelect from "./SearchQuerySelect";
+import useDebounce from "../hooks/useDebounce";
+import { format } from "date-fns";
+
+import styles from "../styles/oneWay.module.css";
+
 const OneWayFlight = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [departDate, setDepartDate] = useState(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -23,6 +28,25 @@ const OneWayFlight = () => {
 
   const debouncedFValue = useDebounce(searchParams?.get("f"), 2000);
   const debouncedTValue = useDebounce(searchParams?.get("t"), 2000);
+
+  const date = format(departDate ?? new Date(), "yyyy-MM-dd");
+
+  const sendToBooking = () => {
+    const payload = {
+      type: "one",
+      from: searchParams?.get("f").trim() ?? "",
+      to: searchParams?.get("t").trim() ?? "",
+      depart:
+        date.toString() === format(new Date(), "yyyy-MM-dd")
+          ? ""
+          : date?.toString()?.trim(),
+      adult: searchParams?.get("adult").trim() ?? "",
+      children: searchParams?.get("children").trim() ?? "",
+    };
+
+    dispatch(setPayload(payload));
+    navigate("/flightdetails", { state: { data: payload } });
+  };
 
   return (
     <>
@@ -84,7 +108,11 @@ const OneWayFlight = () => {
           <PopUp
             trigger={
               <div id={styles.picker}>
-                <Input type="text" placeholder="Depart Date" />
+                <Input
+                  type="text"
+                  placeholder="Depart Date"
+                  value={date === format(new Date(), "yyyy-MM-dd") ? "" : date}
+                />
                 <CalendarDays size={20} />
               </div>
             }
@@ -100,7 +128,9 @@ const OneWayFlight = () => {
           <TraverllersSelect />
         </div>
       </div>
-      <Button className={styles.search_btn}>Search</Button>
+      <Button onClick={sendToBooking} className={styles.search_btn}>
+        Search
+      </Button>
     </>
   );
 };

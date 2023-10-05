@@ -18,10 +18,7 @@ const TraverllersSelect = () => {
   const adult = searchParams?.get("adult");
   const children = searchParams?.get("children");
 
-  const payloadData = {
-    adults: adultsQty,
-    children: childrenQty,
-  };
+  const payloadData = { adults: adultsQty, children: childrenQty };
 
   const handleClick = () => {
     searchParams.set("adult", payloadData.adults);

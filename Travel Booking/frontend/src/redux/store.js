@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { authApi } from "./api/authApi";
 import userSlice from "./slices/userSlice";
 import authModalSlice from "./slices/authModalSlice";
+import flightPayload from "./slices/flightPayloadSlice";
 import { flightApi } from "./api/flightApi";
 
 export const store = configureStore({
@@ -10,6 +11,7 @@ export const store = configureStore({
     [flightApi.reducerPath]: flightApi.reducer,
     userSlice,
     authModalSlice,
+    flightPayload,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()

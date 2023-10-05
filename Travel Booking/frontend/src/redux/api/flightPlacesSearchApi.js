@@ -10,7 +10,19 @@ export const flightPlacesSearchApi = flightApi.injectEndpoints({
         cache: "force-cache",
       }),
     }),
+
+    createOneWayFlightSearch: builder.mutation({
+      query: (payload) => ({
+        method: "POST",
+        url: "/api/flight/create",
+        body: payload,
+        cache: "force-cache",
+      }),
+    }),
   }),
 });
 
-export const { useGetPlacesSearchMutation } = flightPlacesSearchApi;
+export const {
+  useGetPlacesSearchMutation,
+  useCreateOneWayFlightSearchMutation,
+} = flightPlacesSearchApi;

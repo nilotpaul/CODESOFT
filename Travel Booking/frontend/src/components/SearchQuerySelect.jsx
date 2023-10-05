@@ -60,7 +60,7 @@ const SearchQuerySelect = ({
             <div
               key={id}
               onClick={() => {
-                searchParams.set(search, place.name.toLowerCase());
+                searchParams.set(search, place.iataCode);
                 setSearchParams(searchParams);
                 setIsQueryOpen(false);
               }}
