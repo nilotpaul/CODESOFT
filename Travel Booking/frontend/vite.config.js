@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://coral-app-ibtww.ondigitalocean.app",
+        target: "https://dolphin-app-zcxqf.ondigitalocean.app",
         changeOrigin: true,
         secure: false,
       },
