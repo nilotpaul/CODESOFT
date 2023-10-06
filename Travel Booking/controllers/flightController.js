@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const axios = require("axios");
+const data = require("../data.json");
 
 const getPlacesByQuery = asyncHandler(async (req, res) => {
   const { query } = req.body;
@@ -55,34 +56,34 @@ const createOneWayFlightSearch = asyncHandler(async (req, res) => {
     "X-RapidAPI-Host": process.env.X_RapidAPI_Host,
   };
 
-  const flightData = await axios.get(
-    `https://travel-advisor.p.rapidapi.com/flights/create-session?o1=${from}&d1=${to}&dd1=${depart}&ta=${adult}&c=${children}`,
-    { headers }
-  );
+  // const flightData = await axios.get(
+  //   `https://travel-advisor.p.rapidapi.com/flights/create-session?o1=${from}&d1=${to}&dd1=${depart}&ta=${adult}&c=${children}`,
+  //   { headers }
+  // );
 
-  await new Promise((resolve) => setTimeout(resolve, 10000));
+  // await new Promise((resolve) => setTimeout(resolve, 10000));
 
-  const sid = flightData?.data?.search_params?.sid;
+  // const sid = flightData?.data?.search_params?.sid;
 
-  if (!sid) {
-    res.status(404).json("no sid value found");
-    throw new Error("no sid value found");
-  }
+  // if (!sid) {
+  //   res.status(404).json("no sid value found");
+  //   throw new Error("no sid value found");
+  // }
 
-  const pollData = await axios.get(
-    `https://travel-advisor.p.rapidapi.com/flights/poll?sid=${sid}&currency=INR`,
-    { headers }
-  );
+  // const pollData = await axios.get(
+  //   `https://travel-advisor.p.rapidapi.com/flights/poll?sid=${sid}&currency=INR`,
+  //   { headers }
+  // );
 
-  console.log(pollData?.data);
+  // console.log(pollData?.data);
 
-  if (flightData?.status !== 200 || pollData?.status !== 200) {
-    res.status(400).json("couldn't get the data");
-    throw new Error("couldn't get the data");
-  }
+  // if (flightData?.status !== 200 || pollData?.status !== 200) {
+  //   res.status(400).json("couldn't get the data");
+  //   throw new Error("couldn't get the data");
+  // }
 
-  const itineraries = pollData?.data?.itineraries;
-  const carriers = pollData?.data?.carriers;
+  const itineraries = data?.itineraries;
+  const carriers = data?.carriers;
 
   const modifiedFlightData = itineraries?.flatMap((item) => {
     return item?.f?.flatMap((flight) => {
