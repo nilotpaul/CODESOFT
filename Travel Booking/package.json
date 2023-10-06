@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "concurrently \"cd frontend && npm run dev && cd .. \" \"nodemon server.js \""
+    "dev": "concurrently \"cd frontend && npm run dev && cd .. \" \"nodemon server.js \"",
+    "start": "cd frontend && npm run build && cd .. && node server.js"
   },
   "author": "Nilotpaul Nandi",
   "license": "ISC",
