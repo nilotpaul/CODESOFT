@@ -7,10 +7,10 @@ export const paymentApi = createApi({
   }),
   endpoints: (builder) => ({
     createPaymentSession: builder.mutation({
-      query: (price) => ({
+      query: (paymentData) => ({
         url: "/create-checkout-session",
         method: "POST",
-        body: price,
+        body: paymentData,
       }),
     }),
   }),
