@@ -3,7 +3,6 @@ const cors = require("cors");
 const mongoConnect = require("./lib/db");
 const cookie = require("cookie-parser");
 const dotenv = require("dotenv").config();
-const path = require("path");
 
 mongoConnect();
 
@@ -44,18 +43,6 @@ app.use("/api/flight", require("./routes/flightRoutes"));
 
 // payment / booking route
 app.use("/api/booking", require("./routes/paymentRoutes"));
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "frontend", "dist")));
-
-  app.get("*", (_, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
-  });
-} else {
-  app.get("/", (_, res) => {
-    res.send("Currently in dev mode");
-  });
-}
 
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
