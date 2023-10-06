@@ -60,9 +60,9 @@ const createOneWayFlightSearch = asyncHandler(async (req, res) => {
     { headers }
   );
 
-  const sid = flightData?.data?.search_params?.sid;
+  await new Promise((resolve) => setTimeout(resolve, 10000));
 
-  await new Promise((resolve) => setTimeout(resolve, 200));
+  const sid = flightData?.data?.search_params?.sid;
 
   if (!sid) {
     res.status(404).json("no sid value found");
@@ -73,6 +73,8 @@ const createOneWayFlightSearch = asyncHandler(async (req, res) => {
     `https://travel-advisor.p.rapidapi.com/flights/poll?sid=${sid}&currency=INR`,
     { headers }
   );
+
+  console.log(pollData?.data);
 
   if (flightData?.status !== 200 || pollData?.status !== 200) {
     res.status(400).json("couldn't get the data");
@@ -105,9 +107,8 @@ const createOneWayFlightSearch = asyncHandler(async (req, res) => {
     });
   });
 
-  console.log(modifiedFlightData);
-
   res.status(200).json(modifiedFlightData);
+  res.end();
 });
 
 module.exports = {
