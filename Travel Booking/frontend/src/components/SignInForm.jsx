@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "./Input";
 import Button from "./Button";
 import { toast } from "react-hot-toast";
+import { ClipLoader } from "react-spinners";
 import { useLoginUserMutation } from "../redux/api/authApi";
 import { useDispatch } from "react-redux";
 import { setUser } from "../redux/slices/userSlice";
@@ -23,6 +24,7 @@ const SignInForm = ({ isSignInForm, setIsSignInForm }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(signInSchema),
@@ -33,10 +35,18 @@ const SignInForm = ({ isSignInForm, setIsSignInForm }) => {
       const res = await signInMutation(formData).unwrap();
       dispatch(setUser(res));
 
-      if (!error) dispatch(onClose());
+      if (!error) {
+        dispatch(onClose());
+        reset();
+      }
     } catch (err) {
       console.error(err);
-      toast.error(err.data.message);
+
+      if (err && err?.data?.message) {
+        toast.error(err.data.message);
+      } else {
+        toast.error("Something went wrong. Please try again later");
+      }
     }
   };
 
@@ -45,7 +55,9 @@ const SignInForm = ({ isSignInForm, setIsSignInForm }) => {
       <div className={styles.child}>
         <label>Email</label>
         <Input placeholder="email" type="text" {...register("email")} />
-        <span className={styles.errs}>{errors.email?.message}</span>
+        {errors.email?.message && (
+          <span className={styles.errs}>{errors.email?.message}</span>
+        )}
       </div>
       <div className={styles.child}>
         <label>Password</label>
@@ -54,10 +66,14 @@ const SignInForm = ({ isSignInForm, setIsSignInForm }) => {
           type="password"
           {...register("password")}
         />
-        <span className={styles.errs}>{errors.password?.message}</span>
+        {errors.password?.message && (
+          <span className={styles.errs}>{errors.password?.message}</span>
+        )}
       </div>
       <div className={`${styles.child} ${styles.button}`}>
-        <Button type="submit">{isSubmitting ? "Sign In..." : "Sign In"}</Button>
+        <Button type="submit">
+          Sign In {isSubmitting && <ClipLoader color="white" size={18} />}
+        </Button>
       </div>
       <span className={styles.down}>
         don&apos;t have an account?{" "}

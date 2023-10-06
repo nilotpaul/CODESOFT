@@ -7,22 +7,17 @@ export const flightPlacesSearchApi = flightApi.injectEndpoints({
         method: "POST",
         url: "/api/flight/query",
         body: query,
-        cache: "force-cache",
       }),
     }),
 
-    createOneWayFlightSearch: builder.mutation({
-      query: (payload) => ({
-        method: "POST",
-        url: "/api/flight/create",
-        body: payload,
+    createOneWayFlightSearch: builder.query({
+      query: ({ from, to, depart, adult, children }) => ({
+        url: `/api/flight/create?from=${from}&to=${to}&depart=${depart}&adult=${adult}&children=${children}`,
         cache: "force-cache",
       }),
     }),
   }),
 });
 
-export const {
-  useGetPlacesSearchMutation,
-  useCreateOneWayFlightSearchMutation,
-} = flightPlacesSearchApi;
+export const { useGetPlacesSearchMutation, useCreateOneWayFlightSearchQuery } =
+  flightPlacesSearchApi;

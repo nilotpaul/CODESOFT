@@ -69,6 +69,9 @@
   align-self: flex-end;
   padding: 0.4em 0.75em;
   transition: background-color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  column-gap: 0.25rem;
 }
 
 .main .flightDetails .tickets button:hover {
@@ -109,6 +112,7 @@
 }
 
 .main .sidebar {
+  height: max-content;
   padding: 0.5rem 0.8rem;
   margin-bottom: 4rem;
   display: flex;
@@ -205,10 +209,81 @@
   cursor: pointer;
 }
 
+#activeFilter {
+  background-color: #ccc;
+}
+
 @media only screen and (max-width: 480px) {
   .header .header_inside .wrapper {
     align-items: center;
     justify-content: space-between;
     row-gap: 0.8rem;
+  }
+}
+
+.main #filter_ico {
+  display: none;
+}
+
+@media only screen and (max-width: 1124px) {
+  .main .sidebar {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    margin: 10px auto;
+    left: 50%;
+    width: 95%;
+    transform: translateX(-50%) translateY(0);
+    visibility: visible;
+    opacity: 1;
+    transition: transform, opacity, visibility, 0.4s;
+  }
+
+  .main #hidden {
+    transform: translateX(-50%) translateY(calc(100% + 10px));
+    visibility: hidden;
+    opacity: 0;
+    transition: transform, opacity, visibility, 0.4s;
+  }
+
+  .main .disclaimer {
+    margin: 2rem auto;
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .main #filter_ico {
+    display: block;
+    color: red;
+    background-color: #fff;
+    padding: 0.5em;
+    border-radius: 50%;
+    position: fixed;
+    right: 30px;
+    bottom: 50px;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px -4px;
+  }
+
+  .main .flightDetails {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .main .flightDetails .tickets {
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .main .flightDetails .tickets .child .info span:first-child {
+    display: flex;
+    flex-direction: column;
   }
 }

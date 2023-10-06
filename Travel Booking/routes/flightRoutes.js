@@ -7,6 +7,6 @@ const express = require("express");
 const router = express.Router();
 
 router.post("/query", getPlacesByQuery);
-router.post("/create", createOneWayFlightSearch);
+router.get("/create", createOneWayFlightSearch);
 
 module.exports = router;

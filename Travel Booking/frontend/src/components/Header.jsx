@@ -7,7 +7,7 @@ import "react-day-picker/dist/style.css";
 import styles from "../styles/header.module.css";
 
 const Header = () => {
-  const [isOneWayFlight, setIsOneWayFlight] = useState(false);
+  const [isOneWayFlight, setIsOneWayFlight] = useState(true);
 
   return (
     <div className={styles.header}>

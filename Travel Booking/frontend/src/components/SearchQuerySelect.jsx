@@ -3,6 +3,7 @@ import { useGetPlacesSearchMutation } from "../redux/api/flightPlacesSearchApi";
 import { useEffect, useRef } from "react";
 
 import styles from "../styles/searchQuerySelect.module.css";
+import toast from "react-hot-toast";
 
 const SearchQuerySelect = ({
   query,
@@ -26,7 +27,17 @@ const SearchQuerySelect = ({
     async function getQueryData() {
       if (!query || query?.length === 0) return;
 
-      await mutate({ query }).unwrap();
+      try {
+        await mutate({ query }).unwrap();
+      } catch (err) {
+        console.error(err);
+
+        if (err && err?.data?.message) {
+          toast.error(err?.data?.message);
+        } else {
+          toast.error("Something went wrong. Please try again later.");
+        }
+      }
     }
 
     getQueryData();

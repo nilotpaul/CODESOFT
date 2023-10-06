@@ -16,8 +16,8 @@ import { format } from "date-fns";
 import styles from "../styles/oneWay.module.css";
 
 const OneWayFlight = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [departDate, setDepartDate] = useState(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -44,8 +44,8 @@ const OneWayFlight = () => {
       children: searchParams?.get("children").trim() ?? "",
     };
 
-    dispatch(setPayload(payload));
     navigate("/flightdetails", { state: { data: payload } });
+    dispatch(setPayload(payload));
   };
 
   return (

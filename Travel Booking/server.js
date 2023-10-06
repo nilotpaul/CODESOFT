@@ -39,7 +39,11 @@ app.use(cookie());
 // user route
 app.use("/api/users", require("./routes/userRoutes"));
 
+// flight route
 app.use("/api/flight", require("./routes/flightRoutes"));
+
+// payment / booking route
+app.use("/api/booking", require("./routes/paymentRoutes"));
 
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);

@@ -1,7 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const axios = require("axios");
 const data = require("../data.json");
-const { it } = require("date-fns/locale");
 
 const getPlacesByQuery = asyncHandler(async (req, res) => {
   const { query } = req.body;
@@ -44,12 +43,12 @@ const getPlacesByQuery = asyncHandler(async (req, res) => {
 });
 
 const createOneWayFlightSearch = asyncHandler(async (req, res) => {
-  const { from, to, depart, adult, children } = req.body;
+  const { from, to, depart, adult, children } = req.query;
 
-  // if (!from || !to || !depart || !adult || !children) {
-  //   res.status(400).json({ message: "some / all inputs are missing" });
-  //   throw new Error("some / all inputs are missing");
-  // }
+  if (!from || !to || !depart || !adult || !children) {
+    res.status(400).json({ message: "some / all inputs are missing" });
+    throw new Error("some / all inputs are missing");
+  }
 
   const headers = {
     "Content-Type": "application/json",
@@ -61,15 +60,14 @@ const createOneWayFlightSearch = asyncHandler(async (req, res) => {
   //   `https://travel-advisor.p.rapidapi.com/flights/create-session?o1=${from}&d1=${to}&dd1=${depart}&ta=${adult}&c=${children}`,
   //   { headers }
   // );
-
   // const sid = flightData?.data?.search_params?.sid;
+
+  // await new Promise((resolve) => setTimeout(resolve, 500));
 
   // if (!sid) {
   //   res.status(404).json("no sid value found");
   //   throw new Error("no sid value found");
   // }
-
-  // await new Promise((resolve) => setTimeout(resolve, 500));
 
   // const pollData = await axios.get(
   //   `https://travel-advisor.p.rapidapi.com/flights/poll?sid=${sid}&currency=INR`,
@@ -81,13 +79,11 @@ const createOneWayFlightSearch = asyncHandler(async (req, res) => {
   //   throw new Error("couldn't get the data");
   // }
 
-  // res.status(200).json(pollData?.data);
+  const itineraries = data?.itineraries;
+  const carriers = data?.carriers;
 
-  const itineraries = data.itineraries;
-  const carriers = data.carriers;
-
-  const testData = itineraries.flatMap((item) => {
-    return item.f.flatMap((flight) => {
+  const modifiedFlightData = itineraries?.flatMap((item) => {
+    return item?.f?.flatMap((flight) => {
       const carrierCode = flight.l[0].m || flight.l[0].o;
 
       const carrierName = carriers.find((carrier) => carrier.c === carrierCode);
@@ -99,7 +95,7 @@ const createOneWayFlightSearch = asyncHandler(async (req, res) => {
           carrier: carrierName.n,
           carrierImg: carrierName.l,
           info: flight.l[0],
-          prices: item.l,
+          prices: item.l[0],
         });
       }
 
@@ -107,7 +103,7 @@ const createOneWayFlightSearch = asyncHandler(async (req, res) => {
     });
   });
 
-  res.status(200).json(testData);
+  res.status(200).json(modifiedFlightData);
 });
 
 module.exports = {

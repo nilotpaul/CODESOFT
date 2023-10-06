@@ -31,7 +31,10 @@ const Navbar = () => {
             <PopUp
               trigger={
                 <span id={styles.popup}>
-                  Welcome, {user.name} <ChevronDown size={16} />
+                  Welcome,{" "}
+                  {user.name.split(" ")[0].toLowerCase() ||
+                    user.name.toLowerCase()}{" "}
+                  <ChevronDown size={16} />
                 </span>
               }
             >

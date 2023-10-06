@@ -1,12 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const lc = window.localStorage?.getItem("payload")
+  ? JSON.parse(window.localStorage?.getItem("payload"))
+  : "";
+
 const initialState = {
-  type: "",
-  from: "",
-  to: "",
-  depart: "",
-  adult: "",
-  children: "",
+  type: lc?.type ?? "",
+  from: lc?.from ?? "",
+  to: lc?.to ?? "",
+  depart: lc?.depart ?? "",
+  adult: lc?.adult ?? "",
+  children: lc?.children ?? "",
 };
 
 export const flightPayloadSlice = createSlice({
@@ -20,8 +24,10 @@ export const flightPayloadSlice = createSlice({
       state.to = action.payload.to;
       state.depart = action.payload.depart;
       state.type = action.payload.type;
+      window.localStorage.setItem("payload", JSON.stringify(action.payload));
     },
     resetPayload: () => {
+      window.localStorage.removeItem("payload");
       initialState;
     },
   },
