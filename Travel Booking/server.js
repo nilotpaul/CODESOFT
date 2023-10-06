@@ -17,7 +17,7 @@ app.use(
   })
 );
 
-const allowedOrigins = ["http://localhost:5173", "http://localhost:5000"];
+const allowedOrigins = ["http://localhost:5173", "http://localhost:5000", "https://ticket-booking-paul.vercel.app"];
 const corsOptions = {
   origin: (origin, callback) => {
     const origins = allowedOrigins.find((item) => {
