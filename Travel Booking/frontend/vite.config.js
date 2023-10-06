@@ -9,7 +9,7 @@ export default defineConfig({
       "/api": {
         target: "https://dolphin-app-zcxqf.ondigitalocean.app",
         changeOrigin: true,
-        secure: false,
+        secure: true,
       },
     },
   },
