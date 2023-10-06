@@ -110,8 +110,6 @@ const FlightDetails = () => {
       return filteredCarrier ?? item;
     });
 
-  console.log(filteredFlights);
-
   const stripePaymentMutation = async (price, name, flightId) => {
     if (!isAuthenticated) {
       dispatch(onOpen());

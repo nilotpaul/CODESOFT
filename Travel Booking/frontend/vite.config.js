@@ -8,6 +8,7 @@ export default defineConfig({
     proxy: {
       "/api": {
         target: "https://dolphin-app-zcxqf.ondigitalocean.app",
+        // target: "http://localhost:5000",
         changeOrigin: true,
         secure: true,
       },
