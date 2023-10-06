@@ -59,9 +59,10 @@ const createOneWayFlightSearch = asyncHandler(async (req, res) => {
     `https://travel-advisor.p.rapidapi.com/flights/create-session?o1=${from}&d1=${to}&dd1=${depart}&ta=${adult}&c=${children}`,
     { headers }
   );
+
   const sid = flightData?.data?.search_params?.sid;
 
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 200));
 
   if (!sid) {
     res.status(404).json("no sid value found");
@@ -83,24 +84,28 @@ const createOneWayFlightSearch = asyncHandler(async (req, res) => {
 
   const modifiedFlightData = itineraries?.flatMap((item) => {
     return item?.f?.flatMap((flight) => {
-      const carrierCode = flight.l[0].m || flight.l[0].o;
+      const carrierCode = flight?.l[0]?.m || flight?.l[0]?.o;
 
-      const carrierName = carriers.find((carrier) => carrier.c === carrierCode);
+      const carrierName = carriers?.find(
+        (carrier) => carrier?.c === carrierCode
+      );
 
       const results = [];
 
       if (carrierName) {
         results.push({
-          carrier: carrierName.n,
-          carrierImg: carrierName.l,
-          info: flight.l[0],
-          prices: item.l[0],
+          carrier: carrierName?.n,
+          carrierImg: carrierName?.l,
+          info: flight?.l[0],
+          prices: item?.l[0],
         });
       }
 
       return results;
     });
   });
+
+  console.log(modifiedFlightData);
 
   res.status(200).json(modifiedFlightData);
 });
