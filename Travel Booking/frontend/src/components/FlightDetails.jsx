@@ -38,6 +38,7 @@ const FlightDetails = () => {
     error,
   } = useCreateOneWayFlightSearchQuery(payloadData || passedData);
 
+  console.log(flightDetails);
   if (isFetching || isLoading || !flightDetails) {
     return (
       <>
@@ -72,43 +73,47 @@ const FlightDetails = () => {
   const time = searchParams?.get("time");
   const airline = searchParams?.get("airline");
 
-  const filteredFlights = [...flightDetails]
-    ?.sort((a, b) => {
-      const sortedPrice =
-        price === "asc"
-          ? a.prices.pr.p - b.prices.pr.p
-          : price === "desc"
-          ? b.prices.pr.p - a.prices.pr.p
-          : a.prices.pr.p - b.prices.pr.p;
+  const filteredFlights = flightDetails
+    ? [...flightDetails]
+    : []
+        ?.sort((a, b) => {
+          const sortedPrice =
+            price === "asc"
+              ? a.prices.pr.p - b.prices.pr.p
+              : price === "desc"
+              ? b.prices.pr.p - a.prices.pr.p
+              : a.prices.pr.p - b.prices.pr.p;
 
-      return sortedPrice;
-    })
-    ?.filter((item) => {
-      const departTime = format(
-        new Date(item.info.dd),
-        "hh:mm:aaa"
-      ).toUpperCase();
+          return sortedPrice;
+        })
+        ?.filter((item) => {
+          const departTime = format(
+            new Date(item.info.dd),
+            "hh:mm:aaa"
+          ).toUpperCase();
 
-      const filteredDept =
-        time === "night"
-          ? departTime < "06:00:AM"
-          : time === "morning"
-          ? departTime >= "06:00:AM" || departTime <= "12:00:PM"
-          : time === "noon"
-          ? departTime >= "12:00:PM" || departTime <= "06:00:PM"
-          : time === "evening"
-          ? departTime >= "06:00:PM"
-          : item;
+          const filteredDept =
+            time === "night"
+              ? departTime < "06:00:AM"
+              : time === "morning"
+              ? departTime >= "06:00:AM" || departTime <= "12:00:PM"
+              : time === "noon"
+              ? departTime >= "12:00:PM" || departTime <= "06:00:PM"
+              : time === "evening"
+              ? departTime >= "06:00:PM"
+              : item;
 
-      return filteredDept;
-    })
-    ?.filter((item) => {
-      const filteredCarrier = airline
-        ?.toLowerCase()
-        ?.includes(item.carrier?.toLowerCase());
+          return filteredDept;
+        })
+        ?.filter((item) => {
+          const filteredCarrier = airline
+            ?.toLowerCase()
+            ?.includes(item.carrier?.toLowerCase());
 
-      return filteredCarrier ?? item;
-    });
+          return filteredCarrier ?? item;
+        });
+
+  console.log(filteredFlights);
 
   const stripePaymentMutation = async (price, name, flightId) => {
     if (!isAuthenticated) {

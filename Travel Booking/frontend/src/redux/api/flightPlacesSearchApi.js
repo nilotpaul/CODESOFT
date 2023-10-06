@@ -7,6 +7,7 @@ export const flightPlacesSearchApi = flightApi.injectEndpoints({
         method: "POST",
         url: "/api/flight/query",
         body: query,
+        cache: "force-cache",
       }),
     }),
 

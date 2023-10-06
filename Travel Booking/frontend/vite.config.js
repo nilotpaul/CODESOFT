@@ -7,9 +7,9 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://coral-app-ibtww.ondigitalocean.app",
+        target: "http://localhost:5000",
         changeOrigin: true,
-        secure: true,
+        secure: false,
       },
     },
   },

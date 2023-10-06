@@ -61,7 +61,7 @@ const createOneWayFlightSearch = asyncHandler(async (req, res) => {
   );
   const sid = flightData?.data?.search_params?.sid;
 
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   if (!sid) {
     res.status(404).json("no sid value found");
