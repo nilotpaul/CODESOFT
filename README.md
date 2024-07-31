@@ -1,4 +1,5 @@
 # Internship Projects
+These are some of my intership projects
 
 ## Tribute Page - Done
 demo - https://tribute-paul.netlify.app
