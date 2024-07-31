@@ -1,4 +1,4 @@
-# CodSoft Internship Projects
+# Internship Projects
 
 ## Tribute Page - Done
 demo - https://tribute-paul.netlify.app
